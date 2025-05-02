@@ -1,0 +1,30 @@
+# Virtual environment
+venv/
+*.venv/
+env/
+*/env/
+*/venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files (add others like .vscode/ if needed)
+.idea/
+.vscode/
+
+# Logs and output files
+logs/
+*.log
+*.out
+*.sqlite3
+
+# Instance folder (if you use one later for secrets)
+instance/

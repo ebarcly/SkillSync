@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Projects</title>
+</head>
+<body>
+    <h1>My Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <h2>{{ project.name }}</h2>
+                <p>{{ project.description }}</p>
+                {% if project.link %}
+                    <p><strong>Link:</strong> <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
+                {% endif %}
+                <p><strong>Skills:</strong> {{ project.skills|join(', ') }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <p><a href="/add">Add New Project</a></p>
+</body>
+</html>

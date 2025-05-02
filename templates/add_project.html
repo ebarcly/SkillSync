@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Add New Project </title>
+</head>
+<body>
+    <h1> Add New Project </h1>
+    <form method="POST" action="/add_project">
+        <div>
+            <label for="name">Project Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+        </div>
+        <div>
+            <label for="description">Project Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+        </div>
+        <div>
+            <label for="link">Project Link:</label>
+            <input type="url" id="link" name="link"><br><br>
+        </div>
+        <div>
+            <label for="skills">Skills (comma-separated):</label>
+            <input type="text" id="skills" name="skills"><br><br>
+        </div>
+        <button type="submit">Add Project</button>
+    </form>
+    <a href="/">Back to Home</a>
+    <a href="/projects">View All Projects</a>
+</body>

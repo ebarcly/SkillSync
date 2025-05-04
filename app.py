@@ -98,7 +98,10 @@ def analyze_job_description():
             })
     
     # --- JSON output for now, improve later ---
-    return render_template('analysis_results.html', matching_projects=matching_projects)
+    return render_template('analysis_results.html',
+                           job_description=job_description,
+                           skills_found_in_jd=list(found_skills_in_jd), 
+                           matching_projects=matching_projects)
 
 if __name__ == '__main__':
     app.run(debug=True)

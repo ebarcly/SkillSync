@@ -1,7 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      
-        </body>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Analysis Results</title>
     </head>
+<body>
+    <h1>Job Description Analysis Results</h1>
+
+    <h2>Original Job Description</h2>
+    {% if skills_found_in_jd %}
+        <ul>
+            {% for skill in skills_found_in_jd %}
+                <li>{{ skill|capitalize }}</li> <!-- Capitalize the skill for display -->
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No relevant skills identified in the description based on your project skills</p>
+        {% endif %}
+
+<!-- TODO -->
+    <h2>Matching Projects</h2>
+    {% if matching_projects %}
+        <ul>
+            {% for project in matching_projects %}
+                <li>
+                    <h3>{{ project.name }}</h3>
+                    <p><strong>Relevant Skills Found:</strong>
+                        {{project.matched_skills|map('capitalize')|join(', ')}}
+                    </p>
+                    {# Link to project if available - needs adding project line}
+                    {# {% if project.link %}
+                        <p><a href="{{ project.link }}" target="_blank">Project Link</a></p>
+                    {% endif %} #}
+                </li>
+                {% endfor %}
+        </ul>
+        {% else %}
+        <p>No projects found matching the skills identified in the job description</p>
+        {% endif %}
+
+        <hr>
+        <p>
+            <a href="/analyze_form">Analyze another description</a> |
+            <a href="/">Back to Home</a>
+        </p>
+
+</body>
 </html>

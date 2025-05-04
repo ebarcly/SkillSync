@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title> Add New Project </title>
-</head>
-<body>
-    <h1> Add New Project </h1>
-    <form method="POST" action="/add_project">
-        <div>
-            <label for="name">Project Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-        </div>
-        <div>
-            <label for="description">Project Description:</label>
-            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
-        </div>
-        <div>
-            <label for="link">Project Link:</label>
-            <input type="url" id="link" name="link"><br><br>
-        </div>
-        <div>
-            <label for="skills">Skills (comma-separated):</label>
-            <input type="text" id="skills" name="skills"><br><br>
-        </div>
-        <button type="submit">Add Project</button>
-    </form>
-    <a href="/">Back to Home</a>
-    <a href="/projects">View All Projects</a>
-</body>
+{% extends "base.html" %}
+
+{% block title %}Add New Project - SkillSync Portfolio{% endblock %}
+
+{% block content %}
+<h1>Add New Project</h1>
+<hr>
+
+{# POST #}
+<form method="POST" action="{{ url_for('add_new_project') }}">
+
+    {# Project name field #}
+    <div class="mb-3">
+        <label for="name" class="form-label">Project Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    
+    {# Project Description Field #}
+    <div class="mb-3">
+        <label for="description" class="form-label">Project Description:</label>
+        <textarea id="description" name="description" rows="4" class="form-control" required></textarea> {# form-control also styles textareas #}
+    </div>
+
+    {# Project link Field #}
+    <div class="mb-3">
+        <label for="link" class="form-label">Project Link (Optional):</label>
+        <input type="url" id="link" name="link" class="form-control"> {# Use type="url" for better validation/input handling on some devices #}
+    </div>
+
+    {# Skills field #}
+    <div class="mb-3">
+        <label for="skills" class="form-label">Skills (comma-separated):</label>
+        <input type="text" id="skills" name="skills" class="form-control" placeholder="e.g., Python, Flask, HTML, JavaScript">
+        <div class="form-text">Enter Skills separated by commas. These will be used for matching against job description</div>
+    </div>
+
+    {# Submit button #}
+    <button type="submit" class="btn btn-primary">Add Project</button>
+
+</form>
+
+{# Other pages #}
+<div class="mt-4">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm">Back to Home</a>
+    <a href="{{ url_for('list_projects') }}" class="btn btn-outline-secondary btn-sm">View All Projects</a>
+</div>
+{% endblock %}

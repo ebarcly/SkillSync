@@ -1,13 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Project List</title>
-    </head>
-    <body>
-        <h1>Project List</h1>
-        <ul id="project-list">
-        </ul>
-        <a href="/add">Add New Project</a>
-        <a href="/projects">View All Projects</a>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Home - SkillSync Portfolio{% endblock %}
+
+{% block content %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Welcome to SkillSync</h1>
+            <p class="col-md-8 fs-4">Your tool for matching project skills to job requirements.</p>
+            <a href="{{ url_for('analyze_job_form') }}" class="btn btn-primary btn-lg" role="button">Analyze a Job Description</a>
+            <a href="{{ url_for('add_project_form') }}" class="btn btn-secondary btn-lg" role="button">Add a Project</a>
+        </div>
+    </div>
+
+    <div class="row-align-items-md-stretch">
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>View Your Projects</h2>
+                <p>See all the projects you've logged and the skills associated with them.</p>
+                <a href="{{ url_for('list_projects') }}" class="btn btn-outline-light" role="button">View Projects</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>How it Works</h2>
+                <p>Add your projects and skills, paste a job description, and SkillSync will highlight which projects demonstrate the required skills, helping you tailor your resume and applications.</p>
+            </div>
+        </div>
+    </div>
+    {% endblock%}

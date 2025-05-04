@@ -1,22 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Projects</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}My Projects - SkillSync Portfolio{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h1>My Projects</h1>
-    <ul>
+    <!-- Link to add a new project -->
+     <a href="{{ url_for('add_project_form') }}" class="btn btn-primary">Add New Project</a>
+</div>
+<hr>
+
+<!-- Check if there are any projects to display -->
+ {% if projects %}
+ {# Responsive grid: 1 column on small screens, 2 on medium, 3 on large. g-4 adds gutters #}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for project in projects %}
-            <li>
-                <h2>{{ project.name }}</h2>
-                <p>{{ project.description }}</p>
-                {% if project.link %}
-                    <p><strong>Link:</strong> <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
-                {% endif %}
-                <p><strong>Skills:</strong> {{ project.skills|join(', ') }}</p>
-            </li>
+        <div class="col">
+            <!-- Card componets -->
+             <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+
+                    {# Display skills as badges #}
+                    {% if project.skills %}
+                    <p class="card-text mt-auto pt-3">
+                        <strong>Skills:</strong><br>
+                        {% for skill in project.skills %}
+                        <span class="badge bg-secondary me-1">{{ skill }}</span>
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+
+                    {# Display link if available #}
+                    {% if project.link %}
+                    <a href="{{ project.link }}" class="btn btn-outline-primary btn-sm mt-2" target="_blank" rel="noopener noreferrer">View Project Link</a>
+                    {% endif %}
+                </div> {# End card-body #}
+             </div> {# End card #}
+        </div> {# end col #}
         {% endfor %}
-    </ul>
-    <p><a href="/add">Add New Project</a></p>
-</body>
-</html>
+    </div>
+    {% else %}
+    <!-- Show message if the project list is empty -->
+     <div class="alert alert-info" role="alert">
+        You haven't added any projects yet. <a href="{{ url_for('add_project_form') }}" class="alert-link">Add your first project!</a>
+     </div>
+     {% endif %}
+{% endblock %}

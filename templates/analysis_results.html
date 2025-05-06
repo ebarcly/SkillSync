@@ -1,17 +1,20 @@
-{% extends "base.html" %} {% block title %}Analysis Results - SkillSync
-Portfolio{% endblock %} {% block content %}
+{% extends "base.html" %}
+
+{% block title %}Analysis Results - SkillSync Portfolio{% endblock %} 
+
+{% block content %}
 <h1>Job Description Analysis Results</h1>
-<hr />
+<hr>
 
 <div class="row">
   {# Column for Job Description and Found Skills #}
   <div class="col-md-6 mb-4">
     <div class="card">
-      <div class="card-header">Original Job Description</div>
+      <div class="card-header">
+        Original Job Description
+      </div>
       <div class="card-body" style="max-height: 300px; overflow-y: auto">
-        <pre style="white-space: pre-wrap; word-wrap: break-word">
-{{ job_description }}</pre
-        >
+        <pre style="white-space: pre-wrap; word-wrap: break-word">{{ job_description }}</pre>
       </div>
     </div>
 
@@ -24,8 +27,7 @@ Portfolio{% endblock %} {% block content %}
     </ul>
     {% else %}
     <div class="alert alert-warning mt-3" role="alert">
-      No relevant skills identified in the description based on your project
-      skill list.
+      No relevant skills identified in the description based on your project skill list.
     </div>
     {% endif %}
   </div>
@@ -34,6 +36,38 @@ Portfolio{% endblock %} {% block content %}
   <div class="col-md-6">
     <h2>Matching Projects</h2>
     {% if matching_projects %} {# Using a different list group for variety #}
-    <div class="list-group">{% for project in matching_projects %}</div>
+    <div class="list-group">
+      {% for project in matching_projects %}
+      <div class="list-group-item list-group-item-action flex-column align-items-start mb-2 shadow-sm">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{ project.name }}</h5>
+          {# Will add project link icon later #}
+        </div>
+        <p class="mb-1">
+          <small><strong>Relevant skills found:</strong>
+          {% for skill in project.matched_skills %}
+          <span class="badge rounded-pill bg-success ms-1">{{ skill|capitalize }}</span> {# Matched skills #}
+          {% else %}
+          None specified. {# Safe check #}
+          {% endfor %}
+        </small>
+        </p>
+        {# To add project description or link here if needed #}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info mt-3" role="alert">
+      No projects found matching the skills identified in the job description.
+    </div>
+    {% endif %}
   </div>
 </div>
+
+<hr class="mt-4">
+<p>
+  <a href="{{ url_for('analyze_job_form') }}" class="btn btn-secondary">Analyze another description</a>
+  <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Back to Home</a>
+</p>
+
+{% endblock %}

@@ -1,5 +1,9 @@
-from flask import Flask, jsonify, render_template, request
+import os
+from dotenv import load_dotenv
+from flask import Flask, render_template, request, redirect, url_for, flash
 import re # For later use, for more advance parsing
+
+load_dotenv()
 
 # Sample data for projects
 projects = [
@@ -20,6 +24,7 @@ projects = [
 ]
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY')
 
 @app.route('/')
 def index():
@@ -41,20 +46,22 @@ def add_project_form():
 def add_new_project():
     name = request.form['name']
     description = request.form['description']
-    link = request.form['link']
-    skills_str = request.form['skills']
+    link = request.form.get('link')
+    skills_str = request.form.get('skills')
     skills = [skill.strip() for skill in skills_str.split(',')] if skills_str else []
 
     # Create a new project dictionary
     new_project = {
-        'id': len(projects) + 1,
+        'id': len(projects) + 1,  #  need to change with a database
         'name': name,
         'description': description,
         'link': link,
         'skills': skills
     }
     projects.append(new_project)
-    return jsonify({'message': 'Project added successfully', 'project': new_project})
+
+    flash(f"Project '{name}' added successfully!", 'success')  
+    return redirect(url_for('list_projects'))
 
 # Route to serve the HTML form for job description analysis
 @app.route('/analyze_form')
